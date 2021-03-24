@@ -15,5 +15,7 @@ func main() {
 		})
 	})
 
+	groupSorts(router)
+
 	router.Run(":3001")
 }
