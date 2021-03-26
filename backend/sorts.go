@@ -14,18 +14,28 @@ func groupSorts(route *gin.Engine) {
 }
 
 func bubbleSort(con *gin.Context) {
-	con.Header("Content-Type", "application/json")
 	items := strings.Split(con.PostForm("items"), ",")
-	for i := 1; i < len(items); i++ {
-		key := items[i]
-		j := i - 1
-		for j >= 0 && items[j] > key {
-			items[j+1] = items[j]
-			j--
+	steps := [][]string{}
+	for i := 0; i < len(items)-1; i++ {
+		swapped := false
+		for j := 1; j < len(items)-i; j++ {
+			if items[j-1] > items[j] {
+				temp := items[j-1]
+				items[j-1] = items[j]
+				items[j] = temp
+				swapped = true
+			}
+			tempCopy := make([]string, len(items))
+			copy(tempCopy, items)
+			steps = append(steps, tempCopy)
 		}
-		items[j+1] = key
+		if !swapped {
+			break
+		}
 	}
 	con.JSON(http.StatusOK, gin.H{
 		"response": items,
+		"steps":    steps,
 	})
+
 }
