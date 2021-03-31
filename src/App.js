@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
-import IndexTable from './IndexTable';
+import BubbleSort from './BubbleSort';
 
 class Index extends Component {
     render() {
         return (
             <div className="Index">
                 <h1>CS Tools</h1>
-                <IndexTable />
+                <BubbleSort />
             </div>
         )
     }
 }
+
+
 
 export default Index
