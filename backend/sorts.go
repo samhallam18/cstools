@@ -16,7 +16,6 @@ func groupSorts(route *gin.Engine) {
 
 func bubbleSort(con *gin.Context) {
 	con.Header("Access-Control-Allow-Origin", "*")
-	con.Header("Access-Control-Allow-Headers", "access-control-allow-origin, access-control-allow-headers")
 	items := strings.Split(con.PostForm("items"), ",")
 	steps := [][]string{}
 	for i := 0; i < len(items)-1; i++ {

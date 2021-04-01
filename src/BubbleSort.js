@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 
 
 class BubbleSort extends Component {
@@ -16,34 +15,32 @@ class BubbleSort extends Component {
     }
 
     submitHandler = (e) => {
+        alert("A form was submitted: " + this.state)
         e.preventDefault()
-        console.log(this.state)
-        const { items } = this.state
-        axios.post('http://127.0.0.1:3001/sorts/bubble', items)
+        console.log(JSON.stringify(this.state))
+        let config = {
+            method: 'POST',
+        };
+        config.body = new FormData();
+        for (let key in this.state) {
+            config.body.append(key, this.state[key])
+        }
+        fetch('http://127.0.0.1:3001/sorts/bubble', config)
             .then(response => {
-                console.log(response)
-                document.getElementById('bubbleAnswer').value = response
-            })
-            .catch(error => {
-                console.log(error)
+                return response.json()
+            }).then(data => {
+                console.log(data["response"])
             })
     }
 
     render() {
-        const {items} = this.state
         return (
             <div>
                 <form id="bubbleInput" onSubmit={this.submitHandler}>
-                    <label>Enter list of numbers to sort:</label>
-                    <input 
-                        id="bubbleNumbers" 
-                        name="items" 
-                        type="text" 
-                        value={items}
-                        onChange={this.changeHandler}></input>
-                        <button type="submit">
-                            Submit
-                        </button>
+                    <label>Enter list of numbers to sort:
+                        <input type="text" value={this.state.value} name="items" onChange={this.changeHandler} />
+                    </label>
+                    <input type="submit" value="Submit" />
                 </form>
             </div>
         )
