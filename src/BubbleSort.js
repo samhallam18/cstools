@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 class BubbleSort extends Component {
     constructor(props) {
         super(props)
@@ -30,12 +29,15 @@ class BubbleSort extends Component {
                 return response.json()
             }).then(data => {
                 console.log(data["response"])
+            }).catch(error => {
+                console.log(error)
             })
     }
 
     render() {
         return (
-            <div>
+            <div class="bubbleSortExample">
+                <h1>Bubble Sort</h1>
                 <form id="bubbleInput" onSubmit={this.submitHandler}>
                     <label>Enter list of numbers to sort:
                         <input type="text" value={this.state.value} name="items" onChange={this.changeHandler} />

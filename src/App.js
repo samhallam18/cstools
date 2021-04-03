@@ -1,17 +1,29 @@
-import React, {Component} from 'react';
 import BubbleSort from './BubbleSort';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+import Home from './Home';
 
-class Index extends Component {
-    render() {
-        return (
-            <div className="Index">
-                <h1>CS Tools</h1>
-                <BubbleSort />
+export default function App() {
+    return(
+        <Router>
+            <div class="sidenav">
+                <Link to="/">Home</Link>
+                <Link to="/bubble">Bubble Sort</Link>
             </div>
-        )
-    }
+            <div class="main">
+                <Switch>
+                    <Route path="/bubble">
+                        <BubbleSort />
+                    </Route>
+                    <Route path="/">
+                        <Home />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
+    )
 }
-
-
-
-export default Index
