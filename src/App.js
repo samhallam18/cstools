@@ -10,11 +10,14 @@ import Home from './Home';
 export default function App() {
     return(
         <Router>
-            <div class="sidenav">
+            <div className="sidenav">
                 <Link to="/">Home</Link>
                 <Link to="/bubble">Bubble Sort</Link>
+                <Link to="/insertion">Insertion Sort</Link>
+                Useful Links:
+                <a href="https://github.com/samhallam18/cstools">GitHub Repo</a>
             </div>
-            <div class="main">
+            <div className="main">
                 <Switch>
                     <Route path="/bubble">
                         <BubbleSort />
