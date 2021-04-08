@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -17,18 +18,26 @@ func groupSorts(route *gin.Engine) {
 func bubbleSort(con *gin.Context) {
 	con.Header("Access-Control-Allow-Origin", "*")
 	items := strings.Split(con.PostForm("items"), ",")
-	steps := [][]string{}
-	for i := 0; i < len(items)-1; i++ {
+	convertItems := []int{}
+	for _, i := range items {
+		j, err := strconv.Atoi(i)
+		if err != nil {
+			panic(err)
+		}
+		convertItems = append(convertItems, j)
+	}
+	steps := [][]int{}
+	for i := 0; i < len(convertItems)-1; i++ {
 		swapped := false
-		for j := 1; j < len(items)-i; j++ {
-			if items[j-1] > items[j] {
-				temp := items[j-1]
-				items[j-1] = items[j]
-				items[j] = temp
+		for j := 1; j < len(convertItems)-i; j++ {
+			if convertItems[j-1] > convertItems[j] {
+				temp := convertItems[j-1]
+				convertItems[j-1] = convertItems[j]
+				convertItems[j] = temp
 				swapped = true
 			}
-			tempCopy := make([]string, len(items))
-			copy(tempCopy, items)
+			tempCopy := make([]int, len(convertItems))
+			copy(tempCopy, convertItems)
 			steps = append(steps, tempCopy)
 		}
 		if !swapped {

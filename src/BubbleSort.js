@@ -29,10 +29,17 @@ class BubbleSort extends Component {
             .then(response => {
                 return response.json()
             }).then(data => {
-                console.log(data["response"], data["steps"])
+                let filterData = [];
+                filterData = data["steps"].filter(function(item, pos, self) {
+                    console.log(item)
+                    return self.indexOf(item) === pos;
+                })
+                let stepsList = filterData.map(step => <li key={step}>{step}</li>)
                 ReactDOM.render(
                     <div>
-                        { data["response"].join(",")} {data["steps"]}
+                        <ul>
+                            {stepsList}
+                        </ul>
                     </div>,
                     document.getElementById("bubbleAnswer")
                 )
@@ -45,7 +52,9 @@ class BubbleSort extends Component {
         return (
             <div className="bubbleSortExample">
                 <h1>Bubble Sort</h1>
-                <p id="bubbleInfo"><b>Bubble Sort</b> is a sorting algorithm.</p>
+                <p id="bubbleInfo">
+                    <b>Bubble Sort</b> is a sorting algorithm that sorts a list of data by moving values to the end over successive passes.
+                </p>
                 <form id="bubbleInput" onSubmit={this.submitHandler}>
                     <label>Enter list of numbers to sort:
                         <input type="text" value={this.state.value} name="items" onChange={this.changeHandler} />
