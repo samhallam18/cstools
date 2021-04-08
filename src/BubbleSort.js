@@ -15,9 +15,7 @@ class BubbleSort extends Component {
     }
 
     submitHandler = (e) => {
-        alert("A form was submitted: " + this.state)
         e.preventDefault()
-        console.log(JSON.stringify(this.state))
         let config = {
             method: 'POST',
         };
@@ -29,17 +27,19 @@ class BubbleSort extends Component {
             .then(response => {
                 return response.json()
             }).then(data => {
-                let filterData = [];
-                filterData = data["steps"].filter(function(item, pos, self) {
-                    console.log(item)
-                    return self.indexOf(item) === pos;
-                })
-                let stepsList = filterData.map(step => <li key={step}>{step}</li>)
+                let stepsList = data["steps"].map(step => <tr key={step}><td>{step.join(", ")}</td></tr>)
                 ReactDOM.render(
                     <div>
-                        <ul>
-                            {stepsList}
-                        </ul>
+                        <table className="bubbleTable">
+                            <thead>
+                                <tr>
+                                    <th>Steps</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {stepsList}
+                            </tbody>
+                        </table>
                     </div>,
                     document.getElementById("bubbleAnswer")
                 )
@@ -56,8 +56,8 @@ class BubbleSort extends Component {
                     <b>Bubble Sort</b> is a sorting algorithm that sorts a list of data by moving values to the end over successive passes.
                 </p>
                 <form id="bubbleInput" onSubmit={this.submitHandler}>
-                    <label>Enter list of numbers to sort:
-                        <input type="text" value={this.state.value} name="items" onChange={this.changeHandler} />
+                    <label>Enter list of numbers to sort:<br></br>
+                        <input type="text" value={this.state.value} name="items" onChange={this.changeHandler} /><br></br>
                     </label>
                     <input type="submit" value="Submit" />
                 </form>

@@ -2,6 +2,7 @@ package main
 
 import (
 	"net/http"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -38,7 +39,13 @@ func bubbleSort(con *gin.Context) {
 			}
 			tempCopy := make([]int, len(convertItems))
 			copy(tempCopy, convertItems)
-			steps = append(steps, tempCopy)
+			if len(steps) > 0 {
+				if !reflect.DeepEqual(tempCopy, steps[(len(steps)-1)]) {
+					steps = append(steps, tempCopy)
+				}
+			} else {
+				steps = append(steps, tempCopy)
+			}
 		}
 		if !swapped {
 			break
