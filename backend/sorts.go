@@ -19,15 +19,21 @@ func groupSorts(route *gin.Engine) {
 func bubbleSort(con *gin.Context) {
 	con.Header("Access-Control-Allow-Origin", "*")
 	items := strings.Split(con.PostForm("items"), ",")
-	convertItems := []int{}
-	for _, i := range items {
-		j, err := strconv.Atoi(i)
-		if err != nil {
-			panic(err)
+	datatype := con.PostForm("type")
+	var convertItems nil
+	var steps nil
+	if datatype == "string" {
+		convertItems = items
+	} else if datatype == "integer" {
+		convertItems == []int{}
+		for _, i := range items {
+			j, err := strconv.Atoi(i)
+			if err != nil {
+				panic(err)
+			}
+			convertItems = append(convertItems, j)
 		}
-		convertItems = append(convertItems, j)
 	}
-	steps := [][]int{}
 	for i := 0; i < len(convertItems)-1; i++ {
 		swapped := false
 		for j := 1; j < len(convertItems)-i; j++ {

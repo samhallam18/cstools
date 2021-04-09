@@ -6,8 +6,11 @@ class BubbleSort extends Component {
         super(props)
 
         this.state = {
+            type: '',
             items: '',
         }
+        this.changeHandler = this.changeHandler.bind(this)
+        this.submitHandler = this.submitHandler.bind(this)
     }
 
     changeHandler = (e) => {
@@ -56,9 +59,15 @@ class BubbleSort extends Component {
                     <b>Bubble Sort</b> is a sorting algorithm that sorts a list of data by moving values to the end over successive passes.
                 </p>
                 <form id="bubbleInput" onSubmit={this.submitHandler}>
-                    <label>Enter list of numbers to sort:<br></br>
-                        <input type="text" value={this.state.value} name="items" onChange={this.changeHandler} /><br></br>
-                    </label>
+                    <label for="typeSelect">Select data type used:</label>
+                    <input type="radio" name="type" id="integer" value="integer" onChange={this.changeHandler} />
+                    <label for="integer">Integer</label>
+
+                    <input type="radio" name="type" id="string" value="string" onChange={this.changeHandler} />
+                    <label for="string">String</label><br></br>
+
+                    <label for="items">Enter list of numbers to sort:</label><br></br>
+                    <input type="text" value={this.state.value} name="items" onChange={this.changeHandler}/><br></br>
                     <input type="submit" value="Submit" />
                 </form>
                 <div id="bubbleAnswer"></div>
