@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
-class BubbleSort extends Component {
+class InsertionSort extends Component {
     constructor(props) {
         super(props)
 
@@ -25,14 +25,14 @@ class BubbleSort extends Component {
         for (let key in this.state) {
             config.body.append(key, this.state[key])
         }
-        fetch('http://127.0.0.1:3001/sorts/bubble', config)
+        fetch('http://127.0.0.1:3001/sorts/insertion', config)
             .then(response => {
                 return response.json()
             }).then(data => {
                 let stepsList = data["steps"].map(step => <tr key={step}><td>{step.join(", ")}</td></tr>)
                 ReactDOM.render(
                     <div>
-                        <table className="bubbleTable">
+                        <table className="insertionTable">
                             <thead>
                                 <tr>
                                     <th>Steps</th>
@@ -43,7 +43,7 @@ class BubbleSort extends Component {
                             </tbody>
                         </table>
                     </div>,
-                    document.getElementById("bubbleAnswer")
+                    document.getElementById("insertionAnswer")
                 )
             }).catch(error => {
                 console.log(error)
@@ -52,20 +52,20 @@ class BubbleSort extends Component {
 
     render() {
         return (
-            <div className="bubbleSortExample">
-                <h1>Bubble Sort</h1>
-                <p id="bubbleInfo">
-                    <b>Bubble Sort</b> is a sorting algorithm that sorts a list of data by moving values to the end over successive passes.
+            <div className="insertionSortExample">
+                <h1>Insertion Sort</h1>
+                <p id="insertionInfo">
+                    <b>Insertion Sort</b> bla bla bla.
                 </p>
-                <form id="bubbleInput" onSubmit={this.submitHandler}>
-                    <label for="items">Enter list of numbers to sort:</label><br></br>
+                <form id="insertionInput" onSubmit={this.submitHandler}>
+                    <label htmlFor="items">Enter list of numbers to sort:</label><br></br>
                     <input type="text" value={this.state.value} name="items" onChange={this.changeHandler}/><br></br>
                     <input type="submit" value="Submit" />
                 </form>
-                <div id="bubbleAnswer"></div>
+                <div id="insertionAnswer"></div>
             </div>
         )
     }
 }
 
-export default BubbleSort
+export default InsertionSort

@@ -6,6 +6,7 @@ import {
     Link
   } from "react-router-dom";
 import Home from './Home';
+import InsertionSort from './InsertionSort';
 
 export default function App() {
     return(
@@ -21,6 +22,9 @@ export default function App() {
                 <Switch>
                     <Route path="/bubble">
                         <BubbleSort />
+                    </Route>
+                    <Route path="/insertion">
+                        <InsertionSort />
                     </Route>
                     <Route path="/">
                         <Home />
