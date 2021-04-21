@@ -70,7 +70,6 @@ func insertionSort(con *gin.Context) {
 		}
 		convertItems = append(convertItems, j)
 	}
-	fmt.Println(convertItems)
 	steps := [][]int{}
 	for i := 1; i < len(convertItems); i++ {
 		key := convertItems[i]

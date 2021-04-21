@@ -19,6 +19,7 @@ func main() {
 	})
 
 	groupSorts(router)
+	groupSearches(router)
 
 	router.Use(cors.Default())
 	router.Run(":3001")
