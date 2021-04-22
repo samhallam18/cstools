@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 
 class BinarySearch extends Component {
     constructor(props) {
@@ -29,9 +29,37 @@ class BinarySearch extends Component {
             .then(response => {
                 return response.json()
             }).then(data => {
-                
+                ReactDOM.render(
+                    <div>
+                        <p>{ data["response"] }</p>
+                    </div>,
+                    document.getElementById("binaryAnswer")
+                )
+            }).catch(error => {
+                console.log(error)
             })
+    }
+
+    render() {
+        return (
+            <div className="binarySearchExample">
+                <h1>Binary Search</h1>
+                <p id="binaryInfo">
+                    <b>Binary Search</b> bla bla bla.
+                </p>
+                <form id="binarySearch" onSubmit={this.submitHandler}>
+                    <label for="items">Enter an ordered list of numbers (ordering system soon):</label><br/>
+                    <input type="text" value={this.state.value} name="items" onChange={this.changeHandler} /><br/>
+                    <label>Enter the number you would like to search for: </label><br/>
+                    <input type="text" value={this.state.value} name="searchValue" onChange={this.changeHandler}></input><br/>
+                    <input type="submit" value="Submit"></input>
+                </form>
+                <div id="binaryAnswer"></div>
+            </div>
+        )
     }
 
 
 }
+
+export default BinarySearch
