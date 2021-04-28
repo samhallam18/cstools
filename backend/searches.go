@@ -13,6 +13,7 @@ func groupSearches(route *gin.Engine) {
 	searches := route.Group("/searches")
 
 	searches.POST("/binary", binarySearch)
+	searches.POST("/linear", linearSearch)
 }
 
 func binarySearch(con *gin.Context) {
@@ -28,7 +29,7 @@ func binarySearch(con *gin.Context) {
 		items = append(items, j)
 	}
 
-	steps := [][]int{}
+	steps := []string{}
 	start := 0
 	end := len(items) - 1
 	var mid int
@@ -36,10 +37,11 @@ func binarySearch(con *gin.Context) {
 
 	for start <= end && !found {
 		mid = (start + end) / 2
-		steps = append(steps, items[start:end+1])
+		steps = append(steps, "Not found at middle value: "+strconv.Itoa(mid))
 		fmt.Println(steps)
 
 		if items[mid] == searchValue {
+			steps = append(steps, "Item found at: "+strconv.Itoa(mid))
 			found = true
 		} else if items[mid] < searchValue {
 			start = mid + 1
@@ -50,12 +52,40 @@ func binarySearch(con *gin.Context) {
 
 	if found {
 		con.JSON(http.StatusOK, gin.H{
-			"response": "Item found at" + strconv.Itoa(mid),
+			"response": "Item found at index " + strconv.Itoa(mid),
 			"steps":    steps,
 		})
 	} else {
 		con.JSON(http.StatusOK, gin.H{
 			"response": "The item you searched for was not found.",
 		})
+	}
+}
+
+func linearSearch(con *gin.Context) {
+	con.Header("Access-Control-Allow-Origin", "*")
+	searchValue, _ := strconv.Atoi(con.PostForm("searchValue"))
+	items := []int{}
+
+	for _, i := range strings.Split(con.PostForm("items"), ",") {
+		j, err := strconv.Atoi(i)
+		if err != nil {
+			panic(err)
+		}
+		items = append(items, j)
+	}
+
+	steps := []string{}
+	for _, i := range items {
+		if items[i] == searchValue {
+			steps = append(steps, "Item found at: "+strconv.Itoa(i))
+			con.JSON(http.StatusOK, gin.H{
+				"response": "Item found at: " + strconv.Itoa(i),
+				"steps":    steps,
+			})
+			return
+		} else {
+			steps = append(steps, "Item not found at: "+strconv.Itoa(i))
+		}
 	}
 }

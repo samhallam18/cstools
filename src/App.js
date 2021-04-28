@@ -8,6 +8,7 @@ import {
 import Home from './Home';
 import InsertionSort from './InsertionSort';
 import BinarySearch from './BinarySearch';
+import LinearSearch from './LinearSearch';
 
 export default function App() {
     return(
@@ -17,6 +18,7 @@ export default function App() {
                 <Link to="/bubble">Bubble Sort</Link>
                 <Link to="/insertion">Insertion Sort</Link>
                 <Link to="/binary">Binary Search</Link>
+                <Link to="/linear">Linear Search</Link>
                 Useful Links:
                 <a href="https://github.com/samhallam18/cstools">GitHub Repo</a>
             </div>
@@ -30,6 +32,9 @@ export default function App() {
                     </Route>
                     <Route path="/binary">
                         <BinarySearch />
+                    </Route>
+                    <Route paht="/linear">
+                        <LinearSearch />
                     </Route>
                     <Route path="/">
                         <Home />
