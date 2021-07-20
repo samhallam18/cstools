@@ -37,15 +37,16 @@ func binarySearch(con *gin.Context) {
 
 	for start <= end && !found {
 		mid = (start + end) / 2
-		steps = append(steps, "Not found at middle value: "+strconv.Itoa(mid))
 		fmt.Println(steps)
 
 		if items[mid] == searchValue {
 			steps = append(steps, "Item found at: "+strconv.Itoa(mid))
 			found = true
 		} else if items[mid] < searchValue {
+			steps = append(steps, "Not found at middle value: "+strconv.Itoa(mid))
 			start = mid + 1
 		} else {
+			steps = append(steps, "Not found at middle value: "+strconv.Itoa(mid))
 			end = mid - 1
 		}
 	}
