@@ -30,9 +30,10 @@ class BinarySearch extends Component {
             .then(response => {
                 return response.json()
             }).then(data => {
+                let stepsList = data["steps"].map(step => <li key={step}>{step}</li>)
                 ReactDOM.render(
                     <div>
-                        <p>{ data["response"] }</p>
+                        <ul>{stepsList}</ul><br></br>
                     </div>,
                     document.getElementById("binaryAnswer")
                 )
@@ -49,7 +50,7 @@ class BinarySearch extends Component {
                     <b>Binary Search</b> bla bla bla.
                 </p>
                 <form id="binarySearch" onSubmit={this.submitHandler}>
-                    <label for="items">Enter an ordered list of numbers (ordering system soon):</label><br/>
+                    <label htmlFor="items">Enter an ordered list of numbers (ordering system soon):</label><br/>
                     <input type="text" value={this.state.value} name="items" onChange={this.changeHandler} /><br/>
                     <label>Enter the number you would like to search for: </label><br/>
                     <input type="text" value={this.state.value} name="searchValue" onChange={this.changeHandler}></input><br/>

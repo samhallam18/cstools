@@ -62,6 +62,7 @@ class BubbleSort extends Component {
                     <input type="text" value={this.state.value} name="items" onChange={this.changeHandler}/><br></br>
                     <input type="submit" value="Submit" />
                 </form>
+                <br></br>
                 <div id="bubbleAnswer"></div>
             </div>
         )
